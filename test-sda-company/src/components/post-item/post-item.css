@@ -1,0 +1,24 @@
+.post-item {
+    background: #fafafa;
+    padding: 10px 20px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 5px 0px black;
+}
+
+.post-title, .post-body {
+    margin-bottom: 2rem;
+}
+
+.post-reaction {
+    display: flex;
+}
+
+.post-reaction p {
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.edit-handler {
+    text-align: right;
+    margin-bottom: 1rem;
+}

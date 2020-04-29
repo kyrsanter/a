@@ -1,0 +1,37 @@
+.login-form {
+    border: 1px solid #666;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.form-field {
+    position: relative;
+}
+
+.form-field input {
+    width: 100%;
+    border: 1px solid #61ffd8;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+}
+
+.form-field label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transition: all .3s ease;
+    display: inline-block;
+}
+
+.form-field input:focus ~label {
+    top: -10px;
+    background: #fff;
+    padding: 0;
+    line-height: 1;
+    outline: none;
+}
+
+.form-field input:valid ~label {
+    display: none;
+}

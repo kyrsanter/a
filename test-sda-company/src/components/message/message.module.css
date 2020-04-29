@@ -1,0 +1,14 @@
+.messageModal {
+    position: fixed;
+    z-index: 9999;
+    background: #000;
+    padding: 20px 20px 20px 500px;
+    top: 100px;
+    color: #fff;
+    transform: translateX(-2000px);
+    transition: all 1.3s ease;
+}
+
+.active {
+    transform: translateX(-100px);
+}

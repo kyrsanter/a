@@ -1,0 +1,26 @@
+.user-list-item {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.user-list-item div .title {
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.user-list-item div .content {
+    font-size: 1.5rem;
+    display: inline-block;
+}
+
+.user-list-item div a.content:hover{
+    text-decoration: underline;
+}
+
+.user-list-item .btn {
+    margin-top: 2rem;
+}

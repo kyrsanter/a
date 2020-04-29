@@ -1,0 +1,28 @@
+.header {
+    background-color: aquamarine;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+}
+
+.navigation-list {
+    display: flex;
+    list-style: none;
+}
+
+.navigation-list-item a, span {
+    display: block;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.navigation-list-item a:hover {
+    background-color: aqua;
+}
+
+a.active-link {
+    background-color: aqua;
+}
