@@ -45,7 +45,7 @@ exports.loginUser = (req, res) => {
         }
     }
     catch(err) {
-        res.statusCode = 401;
+        res.statusCode = 404;
         return res.end(JSON.stringify({err: 'login too watch this page'}))
     }
     });

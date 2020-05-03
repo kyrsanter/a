@@ -21,6 +21,7 @@ const checkJWT = (req, res) => {
     let newId;                                // use to refresh token
     let token = req.headers['authorization'].replace('Bearer ', '');
     if (!token) {
+        console.log('bad')
         res.statusCode = 401;
         return res.end(JSON.stringify({err: 'Login too watch this page'}))
     }
