@@ -1,13 +1,12 @@
 import React, {FC, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {DispatchUserType, getUserThunk, ThunkUserType} from "../../actions/users.actions";
+import {getUserThunk} from "../../actions/users.actions";
 import Profile from "../../components/profile";
 import {clearUserPosts, getUsersPostsThunk} from "../../actions/posts.actions";
 import {useHistory} from 'react-router-dom'
 import {RootStateType} from "../../store/store";
 import {DispatchPropsType, PropsType, StatePropsType} from "./types";
 import { History } from 'history';
-import {ClearUserPostsType} from "../../types";
 
 const ProfileContainer: FC<PropsType> = (props) => {
     let abortController = new AbortController();
