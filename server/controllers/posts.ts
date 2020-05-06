@@ -1,19 +1,20 @@
 import {IncomingMessage, ServerResponse} from "http";
-import {ParamsTypes, PostsResponseType, PostType} from "./types";
+import {PostsResponseType, PostType} from "./types";
 import {ErrorMessageType, UserResponseType} from "../types";
+import {ParamsTypes} from "../middleware/types";
 
 const url = require('url');
 const fetchNode = require('node-fetch');
 
 exports.getPosts = async (req: IncomingMessage & ParamsTypes, res: ServerResponse) => {
-    let {id, canBeModify, limit, skip, all, token} = req.postsParams; //user id
     try {
+        let {id, adminId, canBeModify, limit, skip, all, token} = req.postsParams; //user id
         let posts: Response = await fetchNode('http://jsonplaceholder.typicode.com/posts');
         let postsJSON: Array<PostType> = await posts.json();
         let neededPosts;
         let author;
         if (!all) {
-            neededPosts = postsJSON.filter( (p: PostType) => p.userId == id );
+            neededPosts = postsJSON.filter( (p: PostType) => p.userId == id );  // filter just an users posts to display them on users page (profile)
         } else {
             neededPosts = postsJSON;
         }
@@ -34,7 +35,7 @@ exports.getPosts = async (req: IncomingMessage & ParamsTypes, res: ServerRespons
                     let resultJSON: Array<UserResponseType> = await usersResponse.json();
                     let userIdx = resultJSON.findIndex( (u: UserResponseType) => u.id === authorId );
                     p.authorName = resultJSON[userIdx].name;
-                    p.canBeModify = authorId === id
+                    p.canBeModify = p.userId == adminId
                 }
             }
             else {

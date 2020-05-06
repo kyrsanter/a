@@ -1,7 +1,7 @@
 import {IncomingMessage, ServerResponse} from "http";
-import {AuthRequestType} from "./types";
 import {UrlWithStringQuery} from "url";
 import {ErrorMessageType} from "../types";
+import {AuthRequestType} from "../middleware/types";
 const http = require('http');
 const url = require('url');
 const jwt = require('jsonwebtoken');

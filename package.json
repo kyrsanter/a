@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy": "concurrently \"npm run build\" \"npm run buildClient\"",
     "start": "npm run build & npm run dev",
     "build": "tsc -p .",
     "build:live": "nodemon --watch \"server/**/*.ts\" --exec \"ts-node\" server/index.ts",
     "client": "npm run start --prefix test-sda-company",
+    "buildClient": "npm run build --prefix test-sda-company",
     "dev": "concurrently \"npm run build:live\" \"npm run client\""
   },
   "keywords": [],

@@ -1,22 +1,9 @@
-import {UserResponseType} from "../types";
-
-export type DataType = {
-    id: string
-    admin: boolean,
-    loggedIn: boolean,
-    token: string | undefined
-}
-
 export type UsersParams = {
     limit: string
     skip: string
     token?: string
 }
 
-export type AuthRequestType = {
-    data?: DataType
-    usersParams?: UsersParams
-}
 
 export type MappedUserList = {
     name: string

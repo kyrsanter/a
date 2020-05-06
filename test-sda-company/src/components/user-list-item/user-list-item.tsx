@@ -8,6 +8,10 @@ const UserListItem: FC<PropsType> = (props) => {
     return (
         <div className="user-list-item">
             <div>
+                <p className='title'>Id: </p>
+                <h2 className='content'>{id}</h2>
+            </div>
+            <div>
                 <p className='title'>Name: </p>
                 <h2 className='content'>{name} ({username})</h2>
             </div>

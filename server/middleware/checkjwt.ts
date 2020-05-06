@@ -10,6 +10,7 @@ import {IncomingMessage, ServerResponse} from "http";
 import {JsonWebTokenError, TokenExpiredError, VerifyErrors} from "jsonwebtoken";
 import {ErrorMessageType} from "../types";
 import {UrlWithStringQuery} from "url";
+import {type} from "os";
 const jwt = require('jsonwebtoken');
 const url = require('url');
 const generatorCookie = require('../helpers/generate-new-cookie');
@@ -33,7 +34,6 @@ const checkjwt = (req: IncomingMessage & RequestJWTDataType, res: ServerResponse
     let newToken: string;                             // use to refresh token
     let newId: string;                                // use to refresh token
     let token: string;
-    //@ts-ignore
     let authHeader = req.headers.authorization;
     if (authHeader) {
         token = authHeader.replace('Bearer ', '');
@@ -46,8 +46,7 @@ const checkjwt = (req: IncomingMessage & RequestJWTDataType, res: ServerResponse
                 if (err && err.name === 'TokenExpiredError' && Date.parse(err.expiredAt) < Date.now() && err.message === 'jwt expired') { // if main access token from localstorage has been expired
                     //=====================================================
 
-                    // @ts-ignore
-                    if (!req.headers.cookie.includes('refresh ')) { // then check do we have a cookie ?
+                    if (req.headers.cookie && !req.headers.cookie.includes('refresh ')) { // then check do we have a cookie ?
                         res.statusCode = 401;
                         return res.end(JSON.stringify(<ErrorMessageType>{err: 'Login too watch this page'})) // if no cookie with refresh in it - send an error to client
                     }
@@ -77,25 +76,15 @@ const checkjwt = (req: IncomingMessage & RequestJWTDataType, res: ServerResponse
                     return res.end(JSON.stringify(<ErrorMessageType>{err: 'Login too watch this page'}))
                 }
                 const reqUrl: UrlWithStringQuery = url.parse(<string>req.url, true);
-                let queryId:string = JSON.parse(JSON.stringify(reqUrl.query)).id;
+                let query = JSON.parse(JSON.stringify(reqUrl.query));
                 let id: string = !decoded ? newId : decoded.userId;        // new id will be not undefined after refresh token
-
-                if (id === queryId) {
-                    req.data = { // if logged in user wants to visit his own page and his posts
-                        id,
-                        admin: true, // if id in token equals id in query string - its an admin
-                        loggedIn: true, // 100% true
-                        token: newToken // if main access token is ok and were not refreshed !!!! here will be undefined. And here will be a new token if main access token was expired
-                    };
-                }
-                else {
-                    req.data = { // if logged in user wants to visit an alien page or alien posts
-                        id: queryId,
-                        admin: false,
-                        loggedIn: true, // 100% true
-                        token: newToken, // if main access token is ok and were not refreshed !!!! here will be undefined. And here will be a new token if main access token was expired
-                    };
-                }
+                req.data = { // if logged in user wants to visit his own page and his posts
+                    id: query.id,
+                    adminId: id,
+                    admin: query.id == id, // if id in token equals id in query string - its an admin
+                    loggedIn: true, // 100% true
+                    token: newToken // if main access token is ok and were not refreshed !!!! here will be undefined. And here will be a new token if main access token was expired
+                };
             })
         }
     }

@@ -1,8 +1,8 @@
 import {IncomingMessage, ServerResponse} from "http";
 import {ErrorMessageType, RequestUsersParams, UserResponseType} from "../types";
-import {GeneratorTokenReturn} from "../middleware/types";
+import {DataType, GeneratorTokenReturn} from "../middleware/types";
 import {CurrentUSerResponseType, LoginUserResponseType} from "./types";
-import {DataType, MappedUserList, UsersResponse} from "../routes/types";
+import {MappedUserList, UsersResponse} from "../routes/types";
 
 const url = require('url');
 const fetchNode = require('node-fetch');

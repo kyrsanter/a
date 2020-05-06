@@ -10,17 +10,6 @@ export type CurrentUSerResponseType = {
     token: string | undefined
 }
 
-export type ParamsTypes = {
-    postsParams: {
-        id: string
-        limit: string
-        skip: string
-        all: boolean
-        canBeModify: boolean
-        token?: string
-    }
-}
-
 export type PostType = {
     id: string,
     userId: string,
