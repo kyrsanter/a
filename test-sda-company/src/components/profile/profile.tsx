@@ -22,8 +22,8 @@ const Profile: FC<PropsType> = (props) => {
         )
     }
 
-    //@ts-ignore
-    let {user: {address, company, admin, ...otherData}} = props;
+
+    let {address, company, admin, ...otherData} = user;
     return (
         <div className="profile">
             <div className="container">

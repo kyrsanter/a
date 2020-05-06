@@ -1,14 +1,18 @@
+import {IncomingMessage, ServerResponse} from "http";
+import {AuthRequestType} from "./types";
+import {ParamsTypes} from "../controllers/types";
+import {ErrorMessageType} from "../types";
+
 const http = require('http');
 const url = require('url');
 const jwt = require('jsonwebtoken');
 const controller = require('../controllers/posts');
-const jwtMiddleware = require('../middleware/check-jwt');
+const { checkJWT } = require('../middleware/checkjwt');
 
-module.exports = (req, res) => {
+module.exports = (req: IncomingMessage & AuthRequestType & ParamsTypes, res: ServerResponse) => {  // finished here
     let reqURL = url.parse(req.url, true);
-
     if (reqURL.pathname === '/posts/user' && req.method === 'GET') {
-        jwtMiddleware.checkJWT(req, res);
+        checkJWT(req, res);
         if (req.data && req.data.loggedIn) {
             let {id: reqUserId, limit, skip} = reqURL.query;
             req.postsParams = {
@@ -22,12 +26,12 @@ module.exports = (req, res) => {
         }
         else {
             res.statusCode = 401;
-            return res.end(JSON.stringify({err: 'Login too watch this page'}));
+            return res.end(JSON.stringify(<ErrorMessageType>{err: 'Login too watch this page'}));
         }
     }
 
     if (reqURL.pathname === '/posts' && req.method === 'GET') {
-        jwtMiddleware.checkJWT(req, res);
+        checkJWT(req, res);
         if (req.data && req.data.loggedIn) {
             let {limit, skip} = reqURL.query;
             req.postsParams = {
@@ -41,7 +45,7 @@ module.exports = (req, res) => {
             controller.getPosts(req, res)
         } else {
             res.statusCode = 401;
-            return res.end(JSON.stringify({err: 'Login too watch this page'}));
+            return res.end(JSON.stringify(<ErrorMessageType>{err: 'Login too watch this page'}));
         }
     }
 };

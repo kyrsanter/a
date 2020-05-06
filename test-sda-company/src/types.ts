@@ -9,7 +9,7 @@ import {CLEAR_MESSAGES, GET_MESSAGE} from "./actions/messages.actions";
 import {CLEAR_USERS, FETCHING_CURRENT_USER, FETCHING_USERS, GET_CURRENT_USER, GET_USERS} from "./actions/users.actions";
 
 export type JWTDecodeType  = {
-    userId: number
+    userId: string
     iss: string
     sub: string
     aud: string
